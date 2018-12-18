@@ -13,17 +13,11 @@ double cosTheta(const Vec3& v) {
 }
 
 
+//ローカル座標系のベクトルからcosThetaの絶対値を計算する
+//戻り値: コサインの絶対値
+//v: ローカル座標系のベクトル
 double absCosTheta(const Vec3& v) {
   return std::abs(v.y);
-}
-
-
-//ローカル座標系のベクトルからsinThetaを計算する
-//戻り値: サイン
-//v: ローカル座標系のベクトル
-double sinTheta(const Vec3& v) {
-  double cos = cosTheta(v);
-  return std::sqrt(std::max(1.0 - cos*cos, 0.0));
 }
 
 
@@ -42,7 +36,7 @@ Vec3 reflect(const Vec3& v, const Vec3& n) {
 //n2: 出射側屈折率
 double fresnel(const Vec3& v, const Vec3& n, double n1, double n2) {
   double f0 = std::pow((n1 - n2)/(n1 + n2), 2.0);
-  double cos = dot(v, n);
+  double cos = absCosTheta(v);
   return f0 + (1 - f0)*std::pow(1 - cos, 5.0);
 }
 
@@ -55,7 +49,8 @@ double fresnel(const Vec3& v, const Vec3& n, double n1, double n2) {
 //n1: 入射側屈折率
 //n2: 出射側屈折率
 bool refract(const Vec3& v, Vec3& r, const Vec3& n, double n1, double n2) {
-  double sin = sinTheta(v);
+  double cos = absCosTheta(v);
+  double sin = std::sqrt(std::max(1 - cos*cos, 0.0));
   double alpha = n1/n2 * sin;
 
   //全反射
@@ -155,19 +150,19 @@ class Glass : public Material {
       if(rnd() < fr) {
         wi = reflect(wo, normal);
         pdf = fr;
-        return fr/cosTheta(wi) * Vec3(1);
+        return fr/absCosTheta(wi) * Vec3(1);
       }
       //屈折
       else {
         if(refract(wo, wi, normal, n1, n2)) {
           pdf = 1 - fr;
-          return std::pow(n1/n2, 2.0) * (1 - fr)/cosTheta(wi) * Vec3(1);
+          return std::pow(n1/n2, 2.0) * (1 - fr)/absCosTheta(wi) * Vec3(1);
         }
         //全反射
         else {
           wi = reflect(wo, normal);
           pdf = 1 - fr;
-          return (1 - fr)/cosTheta(wi) * Vec3(1);
+          return (1 - fr)/absCosTheta(wi) * Vec3(1);
         }
       }
     };

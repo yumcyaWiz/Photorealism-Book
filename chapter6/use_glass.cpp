@@ -53,7 +53,7 @@ Vec3 radiance(const Ray& init_ray, const Aggregate& aggregate, const Sky& sky) {
       double pdf;
       brdf = hitMaterial->sample(wo_local, wi_local, pdf);
       //コサイン
-      double cos = cosTheta(wi_local);
+      double cos = absCosTheta(wi_local);
       //サンプリングされた方向をワールド座標系に変換
       Vec3 wi = localToWorld(wi_local, s, n, t);
 
