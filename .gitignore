@@ -1,4 +1,5 @@
 a.out
+stb_image.h
 *.jpg
 *.png
 *.ppm
