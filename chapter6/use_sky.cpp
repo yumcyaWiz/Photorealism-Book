@@ -103,7 +103,7 @@ int main() {
         double v = (2.0*(j + rnd()) - img.height)/img.height;
 
         //レイを生成
-        Ray ray = cam.getRay(u, v);
+        Ray ray = cam.getRay(-u, -v);
 
         //放射輝度を計算
         Vec3 col = radiance(ray, aggregate, sky);

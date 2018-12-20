@@ -15,7 +15,7 @@ int main() {
       double v = (2.0*j - img.height)/img.height;
 
       //レイの生成
-      Ray ray = cam.getRay(u, v);
+      Ray ray = cam.getRay(-u, -v);
 
       //ピクセルに書き込む色
       Vec3 col = (ray.direction + 1.0)/2.0;

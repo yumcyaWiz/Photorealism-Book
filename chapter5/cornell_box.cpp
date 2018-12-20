@@ -76,7 +76,7 @@ Vec3 radiance(const Ray& init_ray, const Aggregate& aggregate) {
 
 
 int main() {
-  const int N = 100; //サンプリング数
+  const int N = 1000; //サンプリング数
 
   Image img(512, 512);
   PinholeCamera cam(Vec3(0, 0, 4), Vec3(0, 0, -1), 1);
@@ -106,7 +106,7 @@ int main() {
         double v = (2.0*(j + rnd()) - img.height)/img.height;
 
         //レイを生成
-        Ray ray = cam.getRay(u, v);
+        Ray ray = cam.getRay(-u, -v);
 
         //放射輝度を計算
         Vec3 col = radiance(ray, aggregate);

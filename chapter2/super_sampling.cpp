@@ -40,7 +40,7 @@ int main() {
         double v = (2.0*(j + rnd()) - img.height)/img.height;
 
         //レイを生成
-        Ray ray = cam.getRay(u, v);
+        Ray ray = cam.getRay(-u, -v);
         
         //colにはデフォルトで(0, 0, 0) = 黒が入る
         Vec3 col;

@@ -24,7 +24,7 @@ int main() {
       double v = (2.0*j - img.height)/img.height;
 
       //レイを生成
-      Ray ray = cam.getRay(u, v);
+      Ray ray = cam.getRay(-u, -v);
 
       //球と当たった場合は法線を色にして書き込む
       Vec3 col;

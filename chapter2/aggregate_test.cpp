@@ -25,7 +25,7 @@ int main() {
       double v = (2.0*j - img.height)/img.height;
 
       //レイの生成
-      Ray ray = cam.getRay(u, v);
+      Ray ray = cam.getRay(-u, -v);
 
       //法線で色付けする
       Hit res;
