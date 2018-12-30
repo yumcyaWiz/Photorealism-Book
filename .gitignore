@@ -4,3 +4,4 @@ stb_image.h
 *.png
 *.ppm
 *.hdr
+!img/*
